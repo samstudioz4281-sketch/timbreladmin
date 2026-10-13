@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timbrel Festival – Registration Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#EEF1F5; --panel:#FFFFFF; --ink:#16233A; --muted:#5B6678; --line:#D9DEE6;
+  --accent:#C8102E; --accent-soft:#F8E1E5; --navy:#0F2A4A; --ok:#1F7A4D; --warn:#B26A00; --bad:#C8102E;
+  --bar:#0F2A4A; --bar-bg:#E3E8EF;
+  --head:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1624; --panel:#152238; --ink:#E8EDF5; --muted:#9AA7BA; --line:#26364F;
+    --accent:#FF4D63; --accent-soft:#3A1C27; --navy:#9CC0F0; --ok:#4CC38A; --warn:#F0B04A; --bad:#FF6B7D;
+    --bar:#6FA3E8; --bar-bg:#22324B;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--body)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:24px 20px 60px}
+
+header.top{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between;margin-bottom:20px}
+h1{font:700 clamp(26px,4vw,38px)/1.1 var(--head);margin:0;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:6px 0 0}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:500}
+.btn:hover{border-color:var(--ink)}
+a.btn{text-decoration:none;display:inline-block;color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.status{font-size:13px;color:var(--muted)}
+.status.err{color:var(--bad)}
+
+.banner{background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;padding:10px 14px;margin-bottom:16px;display:none}
+.banner.show{display:block}
+
+.hero{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px;margin-bottom:16px}
+.hero-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px}
+.hero .big{font:700 clamp(48px,9vw,84px)/1 var(--head);color:var(--accent);letter-spacing:-.03em}
+.hero .of{font:500 clamp(18px,3vw,26px)/1.2 var(--head)}
+.hero .pct{margin-left:auto;font:700 clamp(20px,3vw,28px) var(--head)}
+.track{height:16px;background:var(--bar-bg);border-radius:8px;margin-top:16px;overflow:hidden}
+.track>i{display:block;height:100%;background:var(--accent);border-radius:8px;width:0;transition:width .5s}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;margin-top:22px;border-top:1px solid var(--line)}
+.stat{padding:16px 16px 0 0}
+.stat b{display:block;font:700 28px/1.1 var(--head)}
+.stat span{color:var(--muted);font-size:13px}
+.stat.warn b{color:var(--warn)} .stat.bad b{color:var(--bad)}
+
+.grid{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-bottom:16px}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;min-width:0}
+h2{font:700 18px/1.2 var(--head);margin:0 0 4px}
+.panel p.note{color:var(--muted);font-size:13px;margin:0 0 14px}
+
+.hbar{display:grid;grid-template-columns:minmax(90px,150px) 1fr 34px;gap:10px;align-items:center;margin:7px 0;font-size:13px}
+.hbar .l{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hbar .t{height:12px;background:var(--bar-bg);border-radius:6px;overflow:hidden}
+.hbar .t i{display:block;height:100%;background:var(--bar);border-radius:6px}
+.hbar .n{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.scroll-y{max-height:420px;overflow-y:auto;padding-right:6px}
+
+.cols{display:flex;align-items:flex-end;gap:6px;height:150px;margin-top:6px;overflow-x:auto;padding-bottom:2px}
+.col{flex:1;min-width:22px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:12px}
+.col i{display:block;width:100%;background:var(--bar);border-radius:4px 4px 0 0;min-height:2px}
+.col.out i{background:var(--accent)}
+.col em{font-style:normal;color:var(--muted);margin-top:4px;white-space:nowrap}
+.col strong{font-size:12px;margin-bottom:2px}
+.sep{height:1px;background:var(--line);margin:20px 0}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.toolbar input,.toolbar select{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+.toolbar input{flex:1;min-width:200px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:var(--bg);font-weight:600;cursor:pointer;user-select:none;position:sticky;top:0}
+th[aria-sort="ascending"]::after{content:" ▲";font-size:10px}
+th[aria-sort="descending"]::after{content:" ▼";font-size:10px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid currentColor}
+.pill.ok{color:var(--ok)} .pill.warn{color:var(--warn)} .pill.bad{color:var(--bad)}
+.empty{padding:36px 16px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font:700 18px var(--head);margin-bottom:6px}
+.pending{display:flex;flex-wrap:wrap;gap:6px}
+.pending span{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:3px 9px;font-size:13px}
+details{margin-top:14px;color:var(--muted);font-size:13px}
+@media print{.actions,.toolbar,details{display:none}body{background:#fff}}
+@media (prefers-reduced-motion:reduce){.track>i{transition:none}}
+
+.tabs{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 16px;border-bottom:1px solid var(--line)}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:10px 16px;cursor:pointer;font-weight:600;color:var(--muted);margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.tabs button:hover{color:var(--ink)}
+.mini{display:flex;align-items:center;gap:8px;min-width:130px}
+.mini .t{flex:1;height:8px;background:var(--bar-bg);border-radius:4px;overflow:hidden}
+.mini .t i{display:block;height:100%;background:var(--accent)}
+.mini span{font-variant-numeric:tabular-nums;font-size:12px;width:38px;text-align:right}
+.ta{display:block;color:var(--muted);font-size:12px}
+tfoot td{font-weight:700;background:var(--bg);border-top:2px solid var(--line)}
+td.wrap{white-space:normal;min-width:180px;max-width:360px;color:var(--muted);font-size:13px}
+.summary{color:var(--muted);font-size:14px;margin:0 0 4px}
+@media print{.tabs{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>Timbrel Festival registrations</h1>
+    <p class="sub">ISET Territorial Timbrel Festival · live from the registration sheet</p>
+  </div>
+  <div class="actions">
+    <span id="status" class="status" role="status">Loading…</span>
+    <a class="btn" id="lnk-sheet" href="https://docs.google.com/spreadsheets/d/1HeVqU45cG9woboiC_Uba9dvsVj1iyD3g16VnjkZXMgI/edit?gid=0#gid=0" target="_blank" rel="noopener">Open Google Sheet</a>
+    <a class="btn" id="lnk-drive" href="https://drive.google.com/drive/folders/1idNGiAbEB8UHiGEIXDuOdyRMd88JcxNb" target="_blank" rel="noopener">Open Google Drive photos</a>
+    <button class="btn" id="refresh" type="button">Refresh</button>
+    <button class="btn" id="loadcsv" type="button">Open CSV file</button>
+    <button class="btn" id="sample" type="button">Preview sample data</button>
+    <input type="file" id="file" accept=".csv,text/csv" hidden>
+  </div>
+</header>
+
+<div id="banner" class="banner" role="alert"></div>
+
+<section class="hero" aria-label="Registration progress">
+  <div class="hero-row">
+    <span class="big" id="k-teams">0</span>
+    <span class="of" id="k-of">of 100 teams registered</span>
+    <span class="pct" id="k-pct">0%</span>
+  </div>
+  <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="track"><i id="fill"></i></div>
+  <div class="stats">
+    <div class="stat"><b id="k-cont">0</b><span>contestants</span></div>
+    <div class="stat"><b id="k-div">0</b><span id="k-divl">divisions taking part</span></div>
+    <div class="stat"><b id="k-corps">0</b><span id="k-corpsl">corps taking part</span></div>
+    <div class="stat"><b id="k-avg">–</b><span>average team size</span></div>
+    <div class="stat" id="s-photo"><b id="k-photo">0</b><span>photos missing</span></div>
+    <div class="stat" id="s-issue"><b id="k-issue">0</b><span>teams needing attention</span></div>
+  </div>
+</section>
+
+<nav class="tabs" role="tablist" aria-label="Report views">
+  <button role="tab" type="button" data-tabbtn="overview" aria-selected="true">Overview</button>
+  <button role="tab" type="button" data-tabbtn="division" aria-selected="false">Division report</button>
+  <button role="tab" type="button" data-tabbtn="corps" aria-selected="false">Corps report</button>
+  <button role="tab" type="button" data-tabbtn="registrations" aria-selected="false">All registrations</button>
+</nav>
+
+<div data-tab="overview">
+<div class="grid">
+  <section class="panel">
+    <h2>Teams by division</h2>
+    <p class="note">Number of teams registered in each division.</p>
+    <div class="scroll-y" id="divchart"></div>
+  </section>
+  <section class="panel">
+    <h2>Team sizes</h2>
+    <p class="note">Contestants per team. Red bars are outside the allowed range.</p>
+    <div class="cols" id="sizechart"></div>
+    <div class="sep"></div>
+    <h2>Registrations per day</h2>
+    <p class="note" id="daynote">Teams submitted on each day.</p>
+    <div class="cols" id="daychart"></div>
+  </section>
+</div>
+
+<section class="panel" id="pendingPanel" hidden style="margin-bottom:16px">
+  <h2>Teams not registered yet</h2>
+  <p class="note" id="pendingNote"></p>
+  <div class="pending" id="pending"></div>
+</section>
+</div>
+
+<section class="panel" data-tab="division" hidden>
+  <h2>Division-wise report</h2>
+  <p class="summary" id="divnote"></p>
+  <div class="toolbar">
+    <button class="btn" id="exp-div" type="button">Download CSV</button>
+    <button class="btn" onclick="window.print()" type="button">Print</button>
+  </div>
+  <div class="tablewrap">
+    <table id="dtbl">
+      <thead><tr>
+        <th data-k="name">Division</th><th data-k="corpsTotal" class="num">Corps in division</th><th data-k="corpsIn" class="num">Corps registered</th>
+        <th data-k="pct">Participation</th><th data-k="teams" class="num">Teams</th><th data-k="contestants" class="num">Contestants</th>
+        <th data-k="avg" class="num">Avg team size</th><th data-k="photos" class="num">Photos missing</th><th data-k="issues" class="num">Need attention</th>
+      </tr></thead>
+      <tbody id="dbody"></tbody>
+      <tfoot id="dfoot"></tfoot>
+    </table>
+  </div>
+</section>
+
+<section class="panel" data-tab="corps" hidden>
+  <h2>Corps-wise report</h2>
+  <p class="summary" id="corpsnote"></p>
+  <div class="toolbar">
+    <input id="cq" type="search" placeholder="Search corps, division or team" aria-label="Search corps">
+    <select id="cdiv" aria-label="Filter by division"><option value="">All divisions</option></select>
+    <select id="cstat" aria-label="Filter by status">
+      <option value="">All corps</option>
+      <option value="Registered">Registered</option>
+      <option value="Not registered">Not registered yet</option>
+      <option value="attention">Needs attention</option>
+    </select>
+    <button class="btn" id="exp-corps" type="button">Download CSV</button>
+    <button class="btn" onclick="window.print()" type="button">Print</button>
+  </div>
+  <div class="tablewrap">
+    <table id="ctbl">
+      <thead><tr>
+        <th data-k="idx">Division</th><th data-k="corps">Corps</th><th data-k="teamCount" class="num">Teams</th>
+        <th data-k="contestants" class="num">Contestants</th><th>Team names</th><th data-k="status">Status</th>
+      </tr></thead>
+      <tbody id="cbody"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel" data-tab="registrations" hidden>
+  <h2>All registrations</h2>
+  <div class="toolbar">
+    <input id="q" type="search" placeholder="Search team, corps or division" aria-label="Search registrations">
+    <select id="fdiv" aria-label="Filter by division"><option value="">All divisions</option></select>
+    <select id="fstat" aria-label="Filter by status">
+      <option value="">All statuses</option>
+      <option value="Complete">Complete</option>
+      <option value="issue">Needs attention</option>
+    </select>
+    <button class="btn" id="export" type="button">Download CSV</button>
+    <button class="btn" onclick="window.print()" type="button">Print</button>
+  </div>
+  <div class="tablewrap">
+    <table id="tbl">
+      <thead><tr>
+        <th data-k="division">Division</th><th data-k="corps">Corps</th><th data-k="team">Team</th>
+        <th data-k="contestants" class="num">Contestants</th><th data-k="photos" class="num">Photos</th>
+        <th data-k="status">Status</th><th data-k="time">Submitted</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <details>
+    <summary>How this page reads your sheet</summary>
+    <p>It matches columns by their headings: Division, Corps, Team, a contestant-count column, and contestant name and photo columns (either "Contestant 1 Name / Photo 1…" across one row, or one row per contestant). Anything it can't find is skipped. Change the settings at the top of the script to set the team total, allowed team size, or a published Apps Script URL.</p>
+  </details>
+</section>
+
+</div>
+
+<script>
+/* ---------- Settings: edit these ---------- */
+const CONFIG = {
+  SHEET_ID: "1HeVqU45cG9woboiC_Uba9dvsVj1iyD3g16VnjkZXMgI",
+  GID: "0",                 // tab with the registrations (the gid=... in the sheet URL)
+  DRIVE_FOLDER_ID: "1idNGiAbEB8UHiGEIXDuOdyRMd88JcxNb", // folder holding contestant photos
+  APPS_SCRIPT_URL: "",      // optional: web app URL that returns the sheet rows as JSON
+  TEAM_TOTAL: 100,          // teams expected
+  DIVISION_TOTAL: 23,       // divisions expected
+  MIN_SIZE: 8, MAX_SIZE: 16,// allowed contestants per team
+  TEAM_NAMES: [],           // optional: paste all team names here to list who hasn't registered
+  REFRESH_SECONDS: 60       // 0 turns auto-refresh off
+};
+
+const MASTER = {"divisions": [{"key": "MARTHANDAM", "ta": "மார்த்தாண்டம்"}, {"key": "THUCKALAY", "ta": "தக்கலை"}, {"key": "KULASEKARAM", "ta": "குலசேகரம்"}, {"key": "NAGERCOIL", "ta": "நாகர்கோயில்"}, {"key": "AZHAGIAPANDIAPURAM", "ta": "அழகியபாண்டியபுரம்"}, {"key": "KANYAKUMARI", "ta": "கன்னியாகுமரி"}, {"key": "INSTITUTION", "ta": ""}, {"key": "ARALVAIMOZHI", "ta": "ஆரல்வாய்மொழி"}, {"key": "VALLIOOR", "ta": "வள்ளியூர்"}, {"key": "RATHAPURAM", "ta": "இராதபுரம்"}, {"key": "TENKASI", "ta": "தென்காசி"}, {"key": "PALAYAMKOTTAI", "ta": "பாளையங்கோட்டை"}, {"key": "TUTICORIN", "ta": "தூத்துக்குடி"}, {"key": "MADURAI", "ta": "மதுரை"}, {"key": "TRICHY", "ta": "திருச்சி"}, {"key": "COIMBATORE", "ta": "கோயம்புத்தூர்"}, {"key": "KATPADY", "ta": "காட்பாடி"}, {"key": "PONDICHERRY", "ta": "பாண்டிச்சேரி"}, {"key": "SALEM", "ta": "சேலம்"}, {"key": "NILGRIS", "ta": "நீலகிரி"}, {"key": "ERODE", "ta": "ஈரோடு"}, {"key": "TANJAVOOR", "ta": "தஞ்சாவூர்"}, {"key": "THIRUPPUR", "ta": "திருப்பூர்"}], "corps": {"MARTHANDAM": ["ARUMANAI - அருமனை", "ARUMANAI WEST - அருமனை மேற்கு", "ANDUCODE - அண்டுகோடு", "ATTOOR - ஆற்றூர்", "CHAIKODE - சாய்க்கோடு", "CHITHARAL - சிதறால்", "CHEMMUTHAL - செம்முதல்", "IYNGAMAM OLD - பழைய ஐங்காமம்", "IYNGAMAM NEW - புதிய ஐங்காமம்", "KUTTAKUZHI - குட்டகுழி", "KAVIYALOOR EAST - கவியலூர் கிழக்கு", "KODUNKULAM - கொடுங்குளம்", "KARUNGAL - கருங்கல்", "KILLIANCODE - கிளியன்கோடு", "KOLLANCODE - கொல்லங்கோடு", "KANCHIRODE - காஞ்சிரோடு", "KANCHIRODE EAST - காஞ்சிரோடு கிழக்கு", "KAVIYALOOR WEST - கவியலூர் மேற்கு", "KODUNKULAM EAST - கொடுங்குளம் கிழக்கு", "KUNCHANCODE - குஞ்சான்கோடு", "MALAMARI - மலமாரி", "MOOVOTTUKONAM - மூவோட்டுகோணம்", "MATHAR - மாத்தார்", "NEDIYANCODE - நெடியாங்கோடு", "NATTALAM - நட்டாலம்", "PERUMPUZHY - பெரும்புளி", "PERUMANKUZHI - பெருமாங்குழி", "PALOOR - பாலூர்", "PERAI - பேரை", "POOTETTY - பூட்டேற்றி", "THIKKURICHY - திக்குறிச்சி", "THIPPIRAMALAI - திப்பிறமலை", "THIRUVATTAR - திருவட்டார்", "VANNIOOR - வன்னியூர்", "VELLACODE - வெள்ளங்கோடு", "VEEYANOOR - வீயனூர்", "YETTACODE - ஏற்றகோடு"], "THUCKALAY": ["ALANCODU - ஆலங்கோடு", "BRAMMAPURAM - பிரம்மபுரம்", "THUCKALAY LEYTON HALL", "CHADAYANVILAI - சடையன்விளை", "CHAKKAPATHU - சக்கப்பத்து", "CHARODE - சாரோடு", "CHEMPARUTHIVILAI - செம்பருத்திவிளை", "CHENGARAVILAI - சேங்கிறவிளை", "KALKURICHY - கல்குறிச்சி", "KANNANOOR - கண்ணணூர்", "KARINJANKODU - கரிஞ்சன்கோடு", "KATTIMANCODE - கட்டிமாங்கோடு", "KIRUBA NAGER - கிருபா நகர்", "KURUMANKUZHY - குருமாங்குழி", "KAPPIYARAI - கப்பியரை", "MANKUZHY - மாங்குழி", "MARUNTHUKOTTAI - மருந்துக்கோட்டை", "MATCHAKARAI - மச்சக்கரை", "MELA MANIYANKUZHY - மேல மணியன்குழி", "MARUTHUKURICHY - மருதூர்குறிச்சி", "MANAKARAI - மணக்கரை", "MANALIKARAI - மணலிக்கரை", "MARANCONAM - மாறாங்கோணம்", "MARAVOORCONAM - மரவூர்க்கோணம்", "MUTTAIKADU - முட்டைக்காடு", "NETTANCODE - நெட்டான்கோடு", "ODUPPARAI - ஒடுப்புறை", "OTTALIVILLAI - ஒட்டலிவிளை", "PALLIKARAI - பள்ளிக்கரை", "PALATINKARAI - பாலாற்றின்கரை", "POOVANCODE - பூவன்கோடு", "PUKKODU - புக்கோடு", "PERUNCODE - பெருங்கோடு", "PALLIYADY - பள்ளியாடி", "SARALVILAI - சரல்விளை", "THALAKUZHAM - தலக்குளம்", "VALIKKALAMPADU - வலிக்கலம்பாடு", "VELLACHIVILAI - வெள்ளச்சிவிளை", "VILAVOOR - விலவூர்", "VIL PARAYADI - வில் பாறையடி"], "KULASEKARAM": ["ANDOOR - அண்டூர்", "ANDAMPARAI - அண்டம்பாறை", "CHEKKUMOODU - செக்குமூடு", "CHECKKAL - சேக்கல்", "KULASEKARAM CENTRAL HALL - குலசேகரம் சென்ட்ரல் ஹால்", "KADUGANOORVILAI - கடுகனூர்விளை", "KAYALAVILAI - கயலவிளை", "KOTTURKONAM - கோட்டூர்கோணம்", "KUMARANKUDY - குமரன்குடி", "KUZHIKALAI - குழிகல", "KOLVAI - கோல்வாய்", "MANNARAMCODE - மன்னார்கோடு", "MUTHALAR - முதலார்", "MAICODE - மேகோடு", "MATHOOR - மாத்தூர்", "NENCHANCHY - நெஞ்சஞ்சி", "PERUNCHAKONAM - பெருஞ்சாகோணம்", "PERINCHILAMBU - பெரிஞ்சிலம்பு", "PANNIPOTHAI - பண்ணிபொத்தை", "RETCHANYAPURAM - இரட்சண்யபுரம்", "THIRUVARABOO - திருவரம்பு", "THENGUVILAI - தெங்குவிளை", "THETTICODE - தெட்டிகோடு", "THENPARAYADY - தென்பராயடி", "THUMBACODE - தும்பகோடு", "VALIYAVILAI - வலியவிளை", "VALIYATHUMUGAM - வலியாற்றுமுகம்", "VILAVOORKONAM - விலவூர்கோணம்"], "NAGERCOIL": ["BEEMA NAGAR - பீம நகர்", "BTMC - பூத்டக்கர் நினைவு பேராலயம்", "CHUNKANKADAI - சுங்காங்கடை", "CHADAYANKULAM - சடையங்குளம்", "ELANTHAIYADY - இலந்தையடி", "ELUPPAYADY - இலுப்பையாடி", "ELANKADAI - இலங்கடை", "IYKIYAPURAM - ஐக்கியபுரம்", "KUNNUVILAI - குன்னுவிளை", "KADETY - காட்டேற்றி", "KANNANKULAM - கண்ணங்குளம்", "KOTHANKULAM - கொத்தங்குளம்", "KULASEKERAMPUTHOOR - குலசேகரன்புதூர்", "KARAYANKUZHI - கரையாங்குழி", "KANNIYAKULAM PARAYADY - கனியாகுளம் பாறையடி", "KARUPPUKOTTAI - கருப்புக்கோட்டை", "KULATHOOR - குளத்தூர்", "PANDARATHOPPU - பண்டாரத்தோப்பு", "PUTHUGRAMMAM - புதுகிராமம்", "PAULKULAM - பால்குளம்", "PARAIYADY - பாறையடி", "THIRUPATHISARAM - திருப்பதிசாரம்", "THATHIYARKULAM - தத்தியார்குளம்", "VADASERY - வடசேரி"], "AZHAGIAPANDIAPURAM": ["ALADY - ஆலடி", "ARANSANKUZHI - அரசன்குழி", "BOOTHAPANDY - பூதப்பாண்டி", "CHEMPONVILAI - செம்பொன்விளை", "DENNISPURAM - டென்னிஸ்புரம்", "ETTAMADAI - எட்டாமடை", "GNANAIAHPURAM - ஞானையாபுரம்", "GNALAM - ஞானம்", "KESAVANERY - கேசவனேரி", "KATTUPUTHOOR - காட்டுப்புதூர்", "KANDANKUZHY - கண்டண்குழி", "KANDALAVOO - கண்டளவு", "KUKKALVILAGAM - குக்கல்விளாகம்", "KADAMPADIVILAGAM - கடம்பாடிவிளாகம்", "MANNADY - மண்ணடி", "NAVALKADU - நாவல்காடு", "NANGANDY - நங்காண்டி", "NANTIKUZHY - நன்றிகுழி", "PACKIANNERY - பாக்கியனேரி", "PEYODU SOUTH - பெயோடு தெற்கு", "PEYODU NORTH - பெயோடு வடக்கு", "RETNAPURAM - ரெத்னாபுரம்", "SURLODU - சுர்லோடு", "SEETHAPAUL - சீதபால்", "THELLANTHY - தெள்ளந்தி", "THAZAKUDY - தாழக்குடி", "THITTUVILAI - திட்டுவிளை", "VARAGUNAMANGALAM - வரகுணமங்கலம்", "VISHNUPURAM - விஷ்ணுபுரம்"], "KANYAKUMARI": ["ATCHANKULAM - அட்சங்குளம்", "AUTHIYADY - ஆத்தியடி", "ATTAKULAM - அட்டகுளம்", "CHALAIPUTHOOR - சாலைப்புத்தூர்", "CHITHRAMPURAM - சித்திரம்புரம்", "JOSEPHPURAM - ஜோசப்புரம்", "E N KULAM - E N குளம்", "KUMARESANPUTHOOR - குமரேசன்புதூர்", "KARAMBAVILAI - கரம்பவிளை", "KARCADU - கக்காடு", "KUTHIKKAL - குடிக்கல்", "KALKURUMPOTHAI - கல்குறும்பொதை", "KARAYANKUZHY - கரையாங்குழி", "KADAIGRAMMAM - கடைகிராமம்", "KONAVILAI - கோணவிளை", "KALVILLAI - கல்விளை", "KRISHNANPUTHOOR - கிருஷ்ணன்புதூர்", "LEXMIPURAM - லெக்ஸ்மிபுரம்", "MANTHANAMPUTHOOR - மந்தானம்புதூர்", "MURUNKOOR COLONY - முருங்கூர் காலனி", "MANAKUDY - மணக்குடி", "MAHARAJAPURAM - மகாராஜபுரம்", "MEIGANAPURAM - மெய்ஞானபுரம்", "NARIKULAM - நரிகுளம்", "OSARAVILAI - ஒசரவிளை", "PERIYAVILAI - பெரியவிளை", "PULLIANKULAM - புளியங்குளம்", "PURAKULAM - புறகுளம்", "PRANTHANERY - பிராந்தனேரி", "THEROOR - தேரூர்", "VARIOOR - வரியுர்", "VADAKARAI - வடகரை"], "INSTITUTION": ["CBH BOYS HOME, NAGERCOIL", "TUCKER GIRLS HOME, NAGERCOIL", "NM BOYS HOME, VALLIOOR"], "ARALVAIMOZHI": ["ARALVAIMOZHI - ஆரல்வாய்மொழி", "ARALVAIMOZHI VTC - ஆரல்வாய்மொழி VTC", "CHENBAGARAMANPUTHOOR - செண்பகராமன்புதூர்", "OVAIYAR COLONY - ஓவையார் காலனி", "THOVAZLAI - தோவாளை", "LAYAM - லாயம்", "PAZHAVOOR - பழவூர்", "KANNANKULAM - கண்ணங்குளம்"], "VALLIOOR": ["AMMACHIKOIL - அம்மாச்சிக்கோயில்", "CENBAGARAMANALLOOR - செண்பகராமநல்லூர்", "CHANGANANKULAM - சங்கனங்குளம்", "ERUVADY - ஏர்வாடி", "ERANTHAI - ஏரந்தை", "KATTALAI - கட்டளை", "KOVILAMMALPURAM EAST - கோவிலம்மாள்புரம் கிழக்கு", "KOVILAMMALPURAM WEST - கோவிலம்மாள்புரம் மேற்கு", "KAMANERY - கமனேரி", "KUMBIKULAM - கும்பிகுளம்", "KOTTAYADI - கோட்டையடி", "KEELKULAM - கீழ்குளம்", "KANNANALOOR - கண்ணனலூர்", "MAHIZHADY - மகிளடி", "MELA NAMBITHOPPU - மேல நம்பிதோப்பு", "NAMBITHOPPU - நம்பிதோப்பு", "OOCHYKULAM - ஊச்சிக்குளம்", "PANAKUDI - பணகுடி", "PAPPANKULAM - பாப்பாங்குளம்", "PERUMALANCHI - பெருமளஞ்சி", "PRIYAMMALPURAM - ப்ரியம்மாள்புரம்", "SYTHAMMALPURAM - சைதம்மாள்புரம்", "THENKARAI - தென்கரை", "THANGAYAM - தங்கயம்", "VALLIOOR CENTRAL HALL - வள்ளியூர் சென்ட்ரல் ஹால்", "VAGAIKULAM - வாகைக்குளம்"], "RATHAPURAM": ["AMAYADI - ஆமையடி", "AMBEDKAR NAGER - அம்பேத்கர் நகர்", "AMBALAVANAPURAM - அம்பலவாணபுரம்", "KUTTINAINARKULAM - குட்டிநாயனார்குளம்", "KOTHANKULAM - கொத்தங்குளம்", "KADUTHULA - காடுத்துல", "KUMARAPURAM - குமாரபுரம்", "KIZHAKULAM - கீழக்குளம்", "KOODAMKULAM - கூடங்குளம்", "MANICKAMPUTHOOR - மாணிக்கம்புத்தூர்", "NAMBIKURICHY - நம்பிக்குறிச்சி", "RATHAPURAM CENTRAL HALL - இராதபுரம் மத்திய மண்டபம்", "PERUMKANNANKULAM - பெரும்கண்ணன்குளம்", "PERUNKUDY - பெருங்குடி", "PATTARKULAM - பட்டர்குளம்", "S S PURAM - எஸ் எஸ் புரம்", "SANGANERY - சங்கனேரி", "SELVAMARUTHOOR - செல்வமருதூர்", "V N KULAM - வி என் குளம்"], "TENKASI": ["ANDARKULAM - ஆண்டார்குளம்", "ATTUVAZHY - அட்டுவாழி", "IDAIKKAL - இடைக்கல்", "E P PUTHOOR - E P புதூர்", "KATTUPURAM - காட்டுபுரம்", "KATTALAI KUDIYIRRUPPU - கட்டளை குடியிருப்பு", "N K CHEVAL - என் கே செவல்", "OPPANYALPURAM - ஒப்பனியால்புரம்", "OPPANYALPURAM COLONY - ஒப்பனியால்புரம் காலனி", "SAMBAVARVADAKARAI - சாம்பவர்வடகரை", "THACHANKUDY - தச்சங்குடி", "VADAMALAPURAM - வடமாலாபுரம்", "VALLIYAMMALPURAM - வள்ளியம்மாள்புரம்", "VADAKARAI - வடகரை"], "PALAYAMKOTTAI": ["PALAYAMKOTTAI CENTRAL HALL - பாளையங்கோட்டை மத்திய மண்டபம்", "MARANTHAI - மரந்தை", "MOONGILADY - மூங்கிலடி", "ERIKALAI PATTI - எரிக்கலை பட்டி", "MOOLAKARAIPATTI - மூலக்கரைப்பட்டி", "MELACHAVEL - மேலச்சேவல்", "VEERAVANALLOR - வீரவணல்லூர்", "PATHAIYOOR - பத்தையூர்", "AMBEDKAR NAGER - அம்பேத்கர் நகர்", "KALAKADU - களக்காடு", "P K KULAM - பி கே குளம்", "PONNAKUDY - பொன்னக்குடி", "SIVANTHIPATTY - சிவந்திப்பட்டி", "V.K NAGER - வி.கே நகர்", "ZION NAGER - சீயோன் நகர்"], "TUTICORIN": ["CHOTTAYANTHOPPU - சோட்டையாந்தோப்பு", "KOVILPATTY - கோவில்பட்டி", "KOMBANKULAM - கொம்பங்குளம்", "SATHANKULAM - சாத்தான்குளம்", "TUTICORIN CENTRAL HALL - தூத்துக்குடி சென்ட்ரல் ஹால்", "THIMMARAJAPURAM - திம்மராஜபுரம்", "THIRUCHENDUR - திருச்செந்தூர்"], "MADURAI": ["DINDUKKAL - திண்டுக்கல்", "KODANKIPATTI - கோடாங்கிப்பட்டி", "MADURAI CENTRAL HALL - மதுரை சென்ட்ரல் ஹால்", "MANUPUTHUPATTI - மனுபுத்துப்பட்டி", "POKKAMPATTY - பொக்கம்பட்டி", "RETRAPATTY - ரெட்ராபட்டி", "ROSALPATTI - ரோசல்பட்டி", "VARIYOOR - வரியூர்"], "TRICHY": ["AIRPORT - விமான நிலையம்", "E P PUTHUR - இ பி புதூர்", "TRICHY CENTRAL HALL - திருச்சி சென்ட்ரல் ஹால்", "KARUR - கரூர்", "PAVITHRAM - பவித்திரம்", "THOOVAKUDY - தூவக்குடி"], "COIMBATORE": ["COIMBATORE CENTRAL HALL - கோயம்புத்தூர் சென்ட்ரல் ஹால்", "CHINNAYAMPALAYAM - சின்னயம்பாளையம்", "METTUPALAYAM - மேட்டுப்பாளையம்", "NANJUNDAPURAM - நஞ்சுண்டபுரம்"], "KATPADY": ["KATPADY CENTRAL HALL - காட்பாடி சென்ட்ரல் ஹால்", "KANAGATHUKARAI - கனகத்துகரை", "PERIYA PALAMBAAKAM - பெரிய பாலம்பாக்கம்", "AMBETHKAR NAGAR - அம்பேத்கர் நகர்"], "PONDICHERRY": ["JJ NAGER - ஜே.ஜே.நகர்", "MUTHERAMPETT - முத்தாரம்பேட்டை", "PONDICHERRY CENTRAL HALL - பாண்டிச்சேரி சென்ட்ரல் ஹால்", "PIDARYPETT - பிடாரிப்பேட்டை", "THAKKAKUTTAI - தக்கக்குட்டை", "VELRAMPETT - வேல்ராம்பேட்டை"], "SALEM": ["A K PATTY - A K பட்டி", "A N MANGALAM - A N மங்கலம்", "MANCHAVADY - மஞ்சவடி", "D P PALAYAM - D P பாளையம்", "M P PALYAM - M P பாளையம்", "RAMALINGAPURAM - ராமலிங்கபுரம்"], "NILGRIS": ["AGANADU - அகநாடு", "KIL KOTHAGIRI - கீழ் கோத்தகிரி"], "ERODE": ["BANGALAW PUTHOOTHOOR - பங்களா தூத்தூர்", "BHARATHIYARNAGER - பாரதியார்நகர்", "BHAVANI - பவானி", "ERODE CENTRAL HALL - ஈரோடு சென்ட்ரல் ஹால்", "INDRA NAGER - இந்திரா நகர்", "MANKARADU - மங்கரடு"], "TANJAVOOR": ["TANJAVOOR - தஞ்சாவூர்"], "THIRUPPUR": ["VOILVAZHI - வோயில்வழி", "PALLADAM - பல்லடம்", "NALLOOR - நல்லூர்"]}};
+
+/* ---------- Helpers ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const clean = s => String(s ?? "").trim();
+const norm = s => clean(s).toLowerCase().replace(/\s+/g, " ");
+let RECORDS = [], sortKey = "time", sortDir = -1, usingSample = false;
+
+function parseCSV(text){
+  const rows = []; let row = [], cur = "", q = false;
+  for (let i = 0; i < text.length; i++){
+    const c = text[i];
+    if (q){
+      if (c === '"'){ if (text[i+1] === '"'){ cur += '"'; i++; } else q = false; }
+      else cur += c;
+    } else if (c === '"') q = true;
+    else if (c === ","){ row.push(cur); cur = ""; }
+    else if (c === "\n" || c === "\r"){ if (c === "\r" && text[i+1] === "\n") i++; row.push(cur); rows.push(row); row = []; cur = ""; }
+    else cur += c;
+  }
+  if (cur !== "" || row.length){ row.push(cur); rows.push(row); }
+  return rows;
+}
+
+/* ---------- Turn a table (header + rows) into one record per team ---------- */
+function toRecords(table){
+  if (!table || table.length < 2) return [];
+  const head = table[0].map(clean);
+  const rows = table.slice(1).filter(r => r.some(c => clean(c)));
+  const find = (re, not) => head.findIndex(h => re.test(h) && !(not && not.test(h)));
+  const iDiv = find(/division/i), iCorps = find(/corps/i);
+  const iTeam = find(/team/i, /number|count|total|size|members/i);
+  const iTime = find(/timestamp|time|date|submitted/i);
+  const iCount = find(/number of|count|total|^contestants$|team size/i, /name|photo|image/i);
+  const numbered = re => head.map((h,i) => ({i, n:(h.match(/(\d+)/)||[])[1]}))
+      .filter(x => x.n && re.test(head[x.i]) && !/team|corps|division/i.test(head[x.i]));
+  const nameCols = numbered(/name/i), photoCols = numbered(/photo|image|picture|upload|url|link/i);
+  const val = (r,i) => i >= 0 ? clean(r[i]) : "";
+  const hasPhotoInfo = photoCols.length > 0;
+  let out = [];
+
+  if (nameCols.length || photoCols.length){            // one row per team
+    out = rows.map(r => {
+      const names = nameCols.filter(c => clean(r[c.i])).length;
+      const photos = photoCols.filter(c => clean(r[c.i])).length;
+      const cnt = parseInt(val(r, iCount), 10);
+      return {division:val(r,iDiv), corps:val(r,iCorps), team:val(r,iTeam), time:val(r,iTime),
+              contestants: Number.isFinite(cnt) ? cnt : (names || photos), photos, hasPhotoInfo};
+    });
+  } else {
+    const iName = find(/name/i, /team|corps|division/i);
+    const iPhoto = find(/photo|image|picture|url|link/i);
+    if (iName >= 0 && iTeam >= 0 && iName !== iTeam){   // one row per contestant
+      const map = new Map();
+      rows.forEach(r => {
+        const key = [val(r,iDiv), val(r,iCorps), val(r,iTeam)].map(norm).join("|");
+        const g = map.get(key) || {division:val(r,iDiv), corps:val(r,iCorps), team:val(r,iTeam), time:val(r,iTime), contestants:0, photos:0, hasPhotoInfo: iPhoto >= 0};
+        if (clean(r[iName])) g.contestants++;
+        if (iPhoto >= 0 && clean(r[iPhoto])) g.photos++;
+        map.set(key, g);
+      });
+      out = [...map.values()];
+    } else {                                            // one row per team, count only
+      out = rows.map(r => ({division:val(r,iDiv), corps:val(r,iCorps), team:val(r,iTeam), time:val(r,iTime),
+              contestants: parseInt(val(r,iCount),10) || 0, photos:0, hasPhotoInfo:false}));
+    }
+  }
+  out.forEach(matchMaster);
+  const seen = {};
+  out.forEach(r => { const k = norm(r.team); if (k) seen[k] = (seen[k] || 0) + 1; });
+  out.forEach(r => {
+    r.date = r.time ? new Date(r.time) : null;
+    if (r.date && isNaN(r.date)) r.date = null;
+    const issues = [];
+    if (seen[norm(r.team)] > 1) issues.push("Duplicate team");
+    if (r.contestants < CONFIG.MIN_SIZE) issues.push("Under " + CONFIG.MIN_SIZE);
+    if (r.contestants > CONFIG.MAX_SIZE) issues.push("Over " + CONFIG.MAX_SIZE);
+    if (r.hasPhotoInfo && r.photos < r.contestants) issues.push((r.contestants - r.photos) + " photo" + (r.contestants - r.photos > 1 ? "s" : "") + " missing");
+    r.issues = issues;
+    r.status = issues.length ? issues.join(", ") : "Complete";
+  });
+  return out;
+}
+
+
+/* ---------- Division / corps master list (from the Come & Shine form) ---------- */
+const DIVS = MASTER.divisions;
+const engKey = v => norm(String(v || "").split(" - ")[0]).toUpperCase();
+const corpsIndex = {};
+DIVS.forEach(d => { corpsIndex[d.key] = {}; (MASTER.corps[d.key] || []).forEach(c => { corpsIndex[d.key][engKey(c)] = c; }); });
+const CORPS_TOTAL = DIVS.reduce((a,d) => a + (MASTER.corps[d.key] || []).length, 0);
+function matchMaster(r){
+  const e = engKey(r.division);
+  const d = DIVS.find(x => x.key === e) || DIVS.find(x => e && e.startsWith(x.key));
+  r.divKey = d ? d.key : null;
+  r.corpsKey = engKey(r.corps);
+  r.corpsMaster = d && corpsIndex[d.key][r.corpsKey] ? corpsIndex[d.key][r.corpsKey] : null;
+}
+function dl(name, head, rows){
+  const q = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+  const csv = [head, ...rows].map(r => r.map(q).join(",")).join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8"}));
+  a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+function sortBy(rows, st){
+  return rows.sort((a,b) => {
+    const x = a[st.k], y = b[st.k];
+    const c = (typeof x === "string") ? x.localeCompare(y) : (x - y);
+    return (c || (a.idx - b.idx)) * st.dir;
+  });
+}
+function markSort(tableId, st){
+  document.querySelectorAll("#" + tableId + " th[data-k]").forEach(th =>
+    th.setAttribute("aria-sort", th.dataset.k === st.k ? (st.dir > 0 ? "ascending" : "descending") : "none"));
+}
+
+/* ---------- Division report ---------- */
+let dSort = {k:"idx", dir:1}, cSort = {k:"idx", dir:1};
+function divisionRows(){
+  const rows = DIVS.map((d,i) => ({idx:i, key:d.key, ta:d.ta, name:d.key, corpsTotal:(MASTER.corps[d.key]||[]).length, set:new Set(), teams:0, contestants:0, photos:0, issues:0, known:true}));
+  const by = Object.fromEntries(rows.map(r => [r.key, r]));
+  let other = null;
+  RECORDS.forEach(r => {
+    const g = r.divKey ? by[r.divKey] : (other = other || {idx:999, key:"Not in master list", ta:"", name:"Not in master list", corpsTotal:0, set:new Set(), teams:0, contestants:0, photos:0, issues:0, known:false});
+    g.teams++; g.contestants += r.contestants;
+    if (r.hasPhotoInfo) g.photos += Math.max(0, r.contestants - r.photos);
+    if (r.issues.length) g.issues++;
+    g.set.add(r.corpsKey || "(blank)");
+  });
+  if (other) rows.push(other);
+  rows.forEach(g => {
+    g.corpsIn = g.known ? [...g.set].filter(k => corpsIndex[g.key][k]).length : g.set.size;
+    g.avg = g.teams ? g.contestants / g.teams : 0;
+    g.pct = g.corpsTotal ? g.corpsIn / g.corpsTotal * 100 : 0;
+  });
+  return rows;
+}
+function renderDivision(){
+  const rows = sortBy(divisionRows(), dSort);
+  markSort("dtbl", dSort);
+  const real = rows.filter(r => r.known);
+  const active = real.filter(r => r.teams).length;
+  const tot = rows.reduce((a,r) => ({teams:a.teams+r.teams, contestants:a.contestants+r.contestants, photos:a.photos+r.photos, issues:a.issues+r.issues, corpsIn:a.corpsIn+r.corpsIn}), {teams:0,contestants:0,photos:0,issues:0,corpsIn:0});
+  $("divnote").textContent = `${active} of ${DIVS.length} divisions have registered at least one team. ${tot.corpsIn} of ${CORPS_TOTAL} corps are taking part.`;
+  $("dbody").innerHTML = rows.map(r => `<tr>
+    <td><b>${esc(r.name)}</b>${r.ta ? `<span class="ta">${esc(r.ta)}</span>` : ""}</td>
+    <td class="num">${r.known ? r.corpsTotal : "–"}</td><td class="num">${r.corpsIn}</td>
+    <td>${r.known ? `<div class="mini"><span class="t"><i style="width:${r.pct}%"></i></span><span>${Math.round(r.pct)}%</span></div>` : "–"}</td>
+    <td class="num">${r.teams}</td><td class="num">${r.contestants}</td>
+    <td class="num">${r.teams ? r.avg.toFixed(1) : "–"}</td><td class="num">${r.photos || "–"}</td><td class="num">${r.issues || "–"}</td></tr>`).join("");
+  $("dfoot").innerHTML = `<tr><td>Total</td><td class="num">${CORPS_TOTAL}</td><td class="num">${tot.corpsIn}</td>
+    <td><div class="mini"><span class="t"><i style="width:${CORPS_TOTAL ? tot.corpsIn/CORPS_TOTAL*100 : 0}%"></i></span><span>${CORPS_TOTAL ? Math.round(tot.corpsIn/CORPS_TOTAL*100) : 0}%</span></div></td>
+    <td class="num">${tot.teams}</td><td class="num">${tot.contestants}</td><td class="num">${tot.teams ? (tot.contestants/tot.teams).toFixed(1) : "–"}</td>
+    <td class="num">${tot.photos || "–"}</td><td class="num">${tot.issues || "–"}</td></tr>`;
+}
+
+/* ---------- Corps report ---------- */
+function corpsRows(){
+  const rows = [], map = {};
+  let idx = 0;
+  DIVS.forEach(d => (MASTER.corps[d.key] || []).forEach(c => {
+    const row = {idx:idx++, division:d.key, corps:c, ce:engKey(c), teams:[], contestants:0, issues:0, known:true};
+    map[d.key + "|" + row.ce] = row; rows.push(row);
+  }));
+  RECORDS.forEach(r => {
+    let row = r.corpsMaster ? map[r.divKey + "|" + r.corpsKey] : null;
+    if (!row){
+      const k = "?|" + engKey(r.division) + "|" + r.corpsKey;
+      if (!map[k]){ map[k] = {idx:1000 + rows.length, division:clean(r.division) || "(blank)", corps:clean(r.corps) || "(blank)", teams:[], contestants:0, issues:0, known:false}; rows.push(map[k]); }
+      row = map[k];
+    }
+    row.teams.push(r.team); row.contestants += r.contestants; if (r.issues.length) row.issues++;
+  });
+  rows.forEach(r => {
+    r.teamCount = r.teams.length;
+    r.status = !r.known ? "Not in master list" : !r.teamCount ? "Not registered" : r.issues ? "Needs attention" : "Registered";
+  });
+  return rows;
+}
+function corpsVisible(){
+  const q = norm($("cq").value), d = $("cdiv").value, st = $("cstat").value;
+  return sortBy(corpsRows(), cSort).filter(r =>
+    (!q || norm([r.division, r.corps, r.teams.join(" ")].join(" ")).includes(q)) &&
+    (!d || r.division === d) &&
+    (!st || (st === "attention" ? (r.status === "Needs attention" || r.status === "Not in master list") : st === "Registered" ? (r.status === "Registered" || r.status === "Needs attention") : r.status === st)));
+}
+function renderCorps(){
+  const all = corpsRows();
+  const known = all.filter(r => r.known), reg = known.filter(r => r.teamCount).length;
+  $("corpsnote").textContent = `${reg} of ${known.length} corps have registered a team. ${known.length - reg} still to register.` +
+    (all.some(r => !r.known) ? ` ${all.filter(r => !r.known).length} entries don't match the corps list.` : "");
+  const cur = $("cdiv").value;
+  $("cdiv").innerHTML = `<option value="">All divisions</option>` + DIVS.map(d => `<option ${d.key===cur?"selected":""}>${esc(d.key)}</option>`).join("");
+  markSort("ctbl", cSort);
+  const rows = corpsVisible();
+  $("cbody").innerHTML = rows.length ? rows.map(r => {
+    const [en, ...ta] = r.corps.split(" - ");
+    const cls = r.status === "Registered" ? "ok" : r.status === "Not registered" ? "warn" : "bad";
+    return `<tr><td>${esc(r.division)}</td><td>${esc(en)}${ta.length ? `<span class="ta">${esc(ta.join(" - "))}</span>` : ""}</td>
+      <td class="num">${r.teamCount || "–"}</td><td class="num">${r.contestants || "–"}</td>
+      <td class="wrap">${esc(r.teams.join(", ")) || "–"}</td><td><span class="pill ${cls}">${esc(r.status)}</span></td></tr>`;
+  }).join("") : `<tr><td colspan="6"><div class="empty"><b>No corps match</b>Try clearing the search or filters.</div></td></tr>`;
+}
+
+/* ---------- Tabs ---------- */
+function showTab(t){
+  if (!document.querySelector(`[data-tab="${t}"]`)) t = "overview";
+  document.querySelectorAll("[data-tab]").forEach(el => { el.hidden = el.dataset.tab !== t; });
+  document.querySelectorAll("[data-tabbtn]").forEach(b => b.setAttribute("aria-selected", b.dataset.tabbtn === t));
+  history.replaceState(null, "", "#" + t);
+}
+document.querySelectorAll("[data-tabbtn]").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tabbtn)));
+
+/* ---------- Loading ---------- */
+function setStatus(msg, err){ const s = $("status"); s.textContent = msg; s.className = "status" + (err ? " err" : ""); }
+function banner(msg){ const b = $("banner"); b.textContent = msg || ""; b.classList.toggle("show", !!msg); }
+
+async function load(){
+  if (usingSample) return;
+  setStatus("Loading…");
+  try {
+    let table;
+    if (CONFIG.APPS_SCRIPT_URL){
+      const j = await (await fetch(CONFIG.APPS_SCRIPT_URL)).json();
+      const data = Array.isArray(j) ? j : (j.rows || j.data || []);
+      if (data.length && !Array.isArray(data[0])){
+        const keys = Object.keys(data[0]);
+        table = [keys, ...data.map(o => keys.map(k => o[k]))];
+      } else table = data;
+    } else {
+      const url = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/gviz/tq?tqx=out:csv&gid=${CONFIG.GID}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const text = await res.text();
+      if (/^\s*<(!doctype|html)/i.test(text)) throw new Error("sign-in page returned");
+      table = parseCSV(text);
+    }
+    RECORDS = toRecords(table); banner("");
+    render(); setStatus("Updated " + new Date().toLocaleTimeString());
+  } catch (e){
+    setStatus("Couldn't load the sheet", true);
+    banner("The sheet couldn't be read (" + e.message + "). In Google Sheets choose Share → General access → Anyone with the link → Viewer, then press Refresh. You can also use Open CSV file to load a downloaded copy.");
+    render();
+  }
+}
+
+/* ---------- Rendering ---------- */
+function bars(el, entries, max){
+  el.innerHTML = entries.length ? entries.map(([l,n]) =>
+    `<div class="hbar"><span class="l" title="${esc(l)}">${esc(l)}</span><span class="t"><i style="width:${max ? n/max*100 : 0}%"></i></span><span class="n">${n}</span></div>`).join("")
+    : `<div class="empty"><b>No registrations yet</b>Teams appear here as they register.</div>`;
+}
+function columns(el, entries, outFn){
+  const max = Math.max(1, ...entries.map(e => e[1]));
+  el.innerHTML = entries.length ? entries.map(([l,n]) =>
+    `<div class="col ${outFn && outFn(l) ? "out" : ""}"><strong>${n || ""}</strong><i style="height:${n/max*100}%"></i><em>${esc(l)}</em></div>`).join("")
+    : `<div class="empty" style="width:100%">Nothing to show yet.</div>`;
+}
+
+function render(){
+  const R = RECORDS, T = CONFIG.TEAM_TOTAL;
+  const uniq = f => new Set(R.map(r => norm(r[f])).filter(Boolean)).size;
+  const teams = R.length, cont = R.reduce((a,r) => a + r.contestants, 0);
+  const missing = R.reduce((a,r) => a + (r.hasPhotoInfo ? Math.max(0, r.contestants - r.photos) : 0), 0);
+  const issues = R.filter(r => r.issues.length).length;
+  const pct = T ? Math.min(100, Math.round(teams / T * 100)) : 0;
+
+  $("k-teams").textContent = teams; $("k-of").textContent = `of ${T} teams registered`;
+  $("k-pct").textContent = pct + "%"; $("fill").style.width = pct + "%";
+  $("track").setAttribute("aria-valuenow", pct);
+  $("k-cont").textContent = cont.toLocaleString();
+  $("k-div").textContent = uniq("division"); $("k-divl").textContent = `of ${CONFIG.DIVISION_TOTAL} divisions`;
+  $("k-corps").textContent = new Set(R.filter(r => r.corpsMaster).map(r => r.divKey + "|" + r.corpsKey)).size;
+  $("k-corpsl").textContent = `of ${CORPS_TOTAL} corps`;
+  $("k-avg").textContent = teams ? (cont / teams).toFixed(1) : "–";
+  $("k-photo").textContent = missing; $("s-photo").className = "stat" + (missing ? " warn" : "");
+  $("k-issue").textContent = issues; $("s-issue").className = "stat" + (issues ? " bad" : "");
+
+  const byDiv = {}; R.forEach(r => { const d = clean(r.division) || "(no division)"; byDiv[d] = (byDiv[d] || 0) + 1; });
+  const divEntries = Object.entries(byDiv).sort((a,b) => b[1]-a[1] || a[0].localeCompare(b[0]));
+  bars($("divchart"), divEntries, divEntries[0] ? divEntries[0][1] : 0);
+
+  const sizes = {}; for (let s = CONFIG.MIN_SIZE; s <= CONFIG.MAX_SIZE; s++) sizes[s] = 0;
+  R.forEach(r => { sizes[r.contestants] = (sizes[r.contestants] || 0) + 1; });
+  const sizeEntries = Object.entries(sizes).sort((a,b) => a[0]-b[0]).filter(([s,n]) => n || (s >= CONFIG.MIN_SIZE && s <= CONFIG.MAX_SIZE));
+  columns($("sizechart"), sizeEntries, l => l < CONFIG.MIN_SIZE || l > CONFIG.MAX_SIZE);
+
+  const byDay = {}; R.forEach(r => { if (r.date){ const k = r.date.toISOString().slice(0,10); byDay[k] = (byDay[k] || 0) + 1; } });
+  const dayEntries = Object.entries(byDay).sort().slice(-14).map(([k,n]) => [new Date(k).toLocaleDateString(undefined,{day:"numeric",month:"short"}), n]);
+  columns($("daychart"), dayEntries);
+  $("daynote").textContent = dayEntries.length ? "Teams submitted on each day (last 14 days with activity)." : "Needs a timestamp column to show this chart.";
+
+  if (CONFIG.TEAM_NAMES.length){
+    const have = new Set(R.map(r => norm(r.team)));
+    const left = CONFIG.TEAM_NAMES.filter(n => !have.has(norm(n)));
+    $("pendingPanel").hidden = false;
+    $("pendingNote").textContent = left.length ? `${left.length} of ${CONFIG.TEAM_NAMES.length} teams still to register.` : "Every team has registered.";
+    $("pending").innerHTML = left.map(n => `<span>${esc(n)}</span>`).join("");
+  } else $("pendingPanel").hidden = true;
+
+  const cur = $("fdiv").value;
+  $("fdiv").innerHTML = `<option value="">All divisions</option>` + divEntries.map(([d]) => `<option ${d===cur?"selected":""}>${esc(d)}</option>`).join("");
+  renderTable(); renderDivision(); renderCorps();
+}
+
+function visibleRows(){
+  const q = norm($("q").value), d = $("fdiv").value, s = $("fstat").value;
+  let rows = RECORDS.filter(r =>
+    (!q || norm([r.division, r.corps, r.team].join(" ")).includes(q)) &&
+    (!d || (clean(r.division) || "(no division)") === d) &&
+    (!s || (s === "issue" ? r.issues.length : !r.issues.length)));
+  rows.sort((a,b) => {
+    let x = sortKey === "time" ? (a.date ? +a.date : 0) : a[sortKey], y = sortKey === "time" ? (b.date ? +b.date : 0) : b[sortKey];
+    if (typeof x === "string") return x.localeCompare(y) * sortDir;
+    return (x - y) * sortDir;
+  });
+  return rows;
+}
+function renderTable(){
+  const rows = visibleRows();
+  document.querySelectorAll("#tbl th").forEach(th => {
+    th.setAttribute("aria-sort", th.dataset.k === sortKey ? (sortDir > 0 ? "ascending" : "descending") : "none");
+  });
+  $("tbody").innerHTML = rows.length ? rows.map(r => {
+    const cls = !r.issues.length ? "ok" : (r.issues.some(i => /Duplicate|Over|Under/.test(i)) ? "bad" : "warn");
+    return `<tr><td>${esc(r.division)}</td><td>${esc(r.corps)}</td><td>${esc(r.team)}</td>
+      <td class="num">${r.contestants}</td><td class="num">${r.hasPhotoInfo ? r.photos : "–"}</td>
+      <td><span class="pill ${cls}">${esc(r.status)}</span></td>
+      <td>${r.date ? esc(r.date.toLocaleString(undefined,{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})) : esc(r.time)}</td></tr>`;
+  }).join("") : `<tr><td colspan="7"><div class="empty"><b>${RECORDS.length ? "No teams match" : "No registrations yet"}</b>${RECORDS.length ? "Try clearing the search or filters." : "Teams appear here as soon as they submit the registration form."}</div></td></tr>`;
+}
+
+/* ---------- Events ---------- */
+$("q").addEventListener("input", renderTable);
+$("fdiv").addEventListener("change", renderTable);
+$("fstat").addEventListener("change", renderTable);
+document.querySelectorAll("#tbl th").forEach(th => th.addEventListener("click", () => {
+  const k = th.dataset.k; sortDir = (sortKey === k) ? -sortDir : 1; sortKey = k; renderTable();
+}));
+
+document.querySelectorAll("#dtbl th[data-k]").forEach(th => th.addEventListener("click", () => {
+  const k = th.dataset.k; dSort = {k, dir: dSort.k === k ? -dSort.dir : (k === "name" || k === "idx" ? 1 : -1)}; renderDivision();
+}));
+document.querySelectorAll("#ctbl th[data-k]").forEach(th => th.addEventListener("click", () => {
+  const k = th.dataset.k; cSort = {k, dir: cSort.k === k ? -cSort.dir : (k === "idx" || k === "corps" || k === "status" ? 1 : -1)}; renderCorps();
+}));
+["cq","cdiv","cstat"].forEach(id => $(id).addEventListener(id === "cq" ? "input" : "change", renderCorps));
+$("exp-div").addEventListener("click", () => dl("division-report.csv",
+  ["Division","Division (Tamil)","Corps in division","Corps registered","Participation %","Teams","Contestants","Avg team size","Photos missing","Teams needing attention"],
+  divisionRows().sort((a,b) => a.idx - b.idx).map(r => [r.name, r.ta, r.known ? r.corpsTotal : "", r.corpsIn, r.known ? Math.round(r.pct) : "", r.teams, r.contestants, r.teams ? r.avg.toFixed(1) : "", r.photos, r.issues])));
+$("exp-corps").addEventListener("click", () => dl("corps-report.csv",
+  ["Division","Corps","Teams","Contestants","Team names","Status"],
+  corpsVisible().map(r => [r.division, r.corps, r.teamCount, r.contestants, r.teams.join("; "), r.status])));
+$("export").addEventListener("click", () => dl("registrations.csv",
+  ["Division","Corps","Team","Contestants","Photos","Status","Submitted"],
+  visibleRows().map(r => [r.division, r.corps, r.team, r.contestants, r.hasPhotoInfo ? r.photos : "", r.status, r.time])));
+$("refresh").addEventListener("click", () => { usingSample = false; load(); });
+$("loadcsv").addEventListener("click", () => $("file").click());
+$("file").addEventListener("change", async e => {
+  const f = e.target.files[0]; if (!f) return;
+  usingSample = true; RECORDS = toRecords(parseCSV(await f.text()));
+  banner("Showing the file “" + f.name + "”. Press Refresh to go back to the live sheet.");
+  render(); setStatus("Loaded from file"); e.target.value = "";
+});
+$("sample").addEventListener("click", () => {
+  usingSample = true;
+  const head = ["Timestamp","Division","Corps","Team Name","Number of contestants"];
+  for (let c = 1; c <= 16; c++) head.push(`Contestant ${c} Name`, `Photo ${c}`);
+  const t = [head], base = Date.now() - 6 * 864e5; let i = 0;
+  DIVS.forEach((d, di) => {
+    const list = MASTER.corps[d.key] || [];
+    const take = Math.min(list.length, (di * 3) % 4);
+    for (let k = 0; k < take; k++){
+      const n = i === 5 ? 6 : i === 9 ? 18 : 8 + (i * 7) % 9;
+      const row = [new Date(base + i * 9e6).toISOString(), d.ta ? `${d.key} - ${d.ta}` : d.key, list[(k * 3) % list.length], `Sample Team ${i + 1}`, n];
+      for (let c = 1; c <= 16; c++){ if (c <= n) row.push(`Name ${c}`, (i % 7 === 3 && c > n - 2) ? "" : "photo-link"); else row.push("", ""); }
+      t.push(row); i++;
+    }
+  });
+  RECORDS = toRecords(t);
+  banner("This is made-up sample data to show how the dashboard looks. Press Refresh to load the live sheet.");
+  render(); setStatus("Sample data");
+});
+
+$("lnk-sheet").href = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/edit?gid=${CONFIG.GID}#gid=${CONFIG.GID}`;
+$("lnk-drive").href = `https://drive.google.com/drive/folders/${CONFIG.DRIVE_FOLDER_ID}`;
+
+showTab((location.hash || "").slice(1) || "overview");
+render(); load();
+if (CONFIG.REFRESH_SECONDS) setInterval(load, CONFIG.REFRESH_SECONDS * 1000);
+</script>
+</body>
+</html>
