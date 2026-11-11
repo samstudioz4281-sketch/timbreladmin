@@ -299,7 +299,7 @@ dialog .row input{background:var(--bg);border:1px solid var(--line);border-radiu
 .idcard .ht b{display:block;font:900 11.5pt/1.15 "Playfair Display",Georgia,serif;letter-spacing:.01em;margin:.6mm 0 0}
 .idcard .ht i{display:block;font:italic 700 9pt/1.18 "Playfair Display",Georgia,serif;color:#e8c547;margin-top:.5mm}
 .idcard .sub{font-size:4.4pt;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:.8mm}
-.idcard .ph{position:relative;width:25mm;height:25mm;flex:none;margin-top:-1mm;border:.9mm solid #1565c0;border-radius:50%;box-sizing:border-box;background:#eef1f5;display:flex;align-items:center;justify-content:center;font:700 16pt var(--head);color:#5B6678;overflow:hidden;text-align:center}
+.idcard .ph{width:25mm;height:25mm;flex:none;margin-top:-1mm;border:.9mm solid #1565c0;border-radius:50%;box-sizing:border-box;background:#eef1f5;display:flex;align-items:center;justify-content:center;font:700 16pt var(--head);color:#5B6678;overflow:hidden;text-align:center}
 .idcard .ph img{width:100%;height:100%;object-fit:cover;object-position:center 25%;display:block}
 .idcard .nm{max-width:72mm;text-align:center;font:700 10.5pt/1.15 "Outfit",var(--head);overflow-wrap:anywhere;padding:0 3mm}
 .idcard .pill{width:50mm;box-sizing:border-box;background:#e3f2fd;border:.6mm solid #90caf9;border-radius:2.6mm;text-align:center;padding:.9mm 0 1mm;color:#1565c0}
@@ -341,14 +341,14 @@ a.idsrc:hover{color:var(--accent);text-decoration:underline}
 body.hide-summary #summary{display:none!important}
 .po-stage{--ps:.5;--pps:.68;--ph:1500;width:calc(1080px*var(--ps));height:calc(var(--ph)*1px*var(--ps));margin:6px 0 0;overflow:hidden;border-radius:calc(18px*var(--ps))}
 .poster{position:relative;width:1080px;transform:scale(var(--ps));transform-origin:0 0;overflow:hidden;box-sizing:border-box;padding:46px 40px 110px;color:#fff;font-family:"Outfit",var(--body);text-align:center;
-  background:radial-gradient(ellipse at 50% -4%,rgba(255,200,70,.95) 0%,rgba(255,170,20,.55) 16%,rgba(255,170,20,0) 52%),linear-gradient(180deg,var(--pb1,#0d3a9a) 0%,var(--pb2,#0a2a7a) 38%,var(--pb3,#07184f) 72%,var(--pb4,#050f38) 100%)}
+  background:radial-gradient(ellipse at 50% -4%,rgba(255,200,70,.95) 0%,rgba(255,170,20,.55) 16%,rgba(255,170,20,0) 52%),linear-gradient(180deg,#0d3a9a 0%,#0a2a7a 38%,#07184f 72%,#050f38 100%)}
 .poster .po-arc{position:absolute;left:100px;top:150px;width:880px;height:880px;border-radius:50%;border:14px solid #ffd54a;box-shadow:0 0 70px 10px rgba(255,190,40,.75),inset 0 0 70px 6px rgba(255,190,40,.6);opacity:.85}
 .poster>*{position:relative}
 .poster .po-org{font-size:30px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#ffe9b0}
 .poster .po-title{font:900 76px/1.1 "Playfair Display",Georgia,serif;color:#ffd54a;margin:6px 0 4px;text-shadow:0 5px 0 #7a0000,0 10px 24px rgba(0,0,0,.45)}
 .poster .po-fest{font:italic 700 36px/1.2 "Playfair Display",Georgia,serif;color:#fff}
 .poster .po-plaque{margin:38px auto 44px;width:900px;box-sizing:border-box;padding:16px;border-radius:46px;background:linear-gradient(160deg,#fff1a8,#ffc928 40%,#b8860b 75%,#ffe27a);box-shadow:0 16px 50px rgba(0,0,0,.45)}
-.poster .po-plaque-in{border-radius:32px;padding:46px 40px 40px;background:radial-gradient(circle at 50% 28%,var(--pl1,#2a5fe0),var(--pl2,#0b2275) 85%);position:relative}
+.poster .po-plaque-in{border-radius:32px;padding:46px 40px 40px;background:radial-gradient(circle at 50% 28%,#2a5fe0,#0b2275 85%);position:relative}
 .poster .po-crest{position:absolute;left:50%;top:-78px;width:120px;margin-left:-60px}
 .poster .po-crest img{width:120px;display:block}
 .poster .po-team{font:800 110px/1.02 "Outfit",sans-serif;text-transform:uppercase;color:#fff;letter-spacing:.01em;text-shadow:0 5px 0 #b8860b,0 12px 22px rgba(0,0,0,.5);overflow-wrap:anywhere}
@@ -356,7 +356,7 @@ body.hide-summary #summary{display:none!important}
 .poster .po-ribbon i{display:block;height:16px}
 .poster .po-ribbon i.y{background:#ffc928}
 .poster .po-ribbon i.r{background:#e01010}
-.poster .po-ribbon b{display:block;background:var(--pr,#1d4fd8);padding:12px 44px;font-size:38px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.poster .po-ribbon b{display:block;background:#1d4fd8;padding:12px 44px;font-size:38px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff}
 .poster .po-plaque{position:relative}
 .poster .po-plaque-in,.poster .po-plaque-in>*{z-index:2}
 .poster .po-rb{position:absolute;width:330px;height:92px;border-radius:8px;z-index:0;box-shadow:0 8px 20px rgba(0,0,0,.5);background:linear-gradient(180deg,#ffc928 0,#ffc928 33.3%,#1d4fd8 33.3%,#1d4fd8 66.6%,#e01010 66.6%,#e01010 100%)}
@@ -371,9 +371,6 @@ body.hide-summary #summary{display:none!important}
 .poster .po-card{width:240px;box-sizing:border-box;padding:11px;border-radius:30px;background:linear-gradient(160deg,#fff1a8,#ffc928 40%,#b8860b 75%,#ffe27a);box-shadow:0 8px 24px rgba(0,0,0,.45),0 0 22px rgba(255,200,60,.55)}
 .poster .po-in{position:relative;border-radius:21px;overflow:hidden;background:#fff}
 .poster .po-ph{display:block;width:100%;height:290px;object-fit:cover;object-position:center 20%;background:#eee}
-.poster .po-pw{position:relative;width:100%;height:290px;overflow:hidden;background:#eee}
-.idcard .ph img,.poster .po-pw img{background:#eef1f5}
-.fitted{position:absolute!important;max-width:none!important;object-fit:fill!important}
 .poster .po-ph.none{display:flex;align-items:center;justify-content:center;font:800 90px "Outfit",sans-serif;color:#b0a47a;background:#f4efdb}
 .poster .po-name{position:absolute;left:8px;right:8px;bottom:8px;min-height:56px;display:flex;align-items:center;justify-content:center;padding:4px 8px;border-radius:14px;background:#fff7b8;border:2px solid #f0d060;color:#1b1b9e;font-weight:800;text-transform:uppercase;line-height:1.1;overflow-wrap:anywhere;box-sizing:border-box}
 @media print{
@@ -396,7 +393,7 @@ body.hide-summary #summary{display:none!important}
   </div>
   <div class="actions">
     <span id="status" class="status" role="status">Loading…</span>
-    <span class="status admin-only" id="ver">Version: 11 Nov 2026 · list matching</span>
+    <span class="status admin-only" id="ver">Version: 31 Oct 2026 · blue-gold poster</span>
     <a class="btn staff-only" data-tool="sheet" id="lnk-sheet" href="https://docs.google.com/spreadsheets/d/1HeVqU45cG9woboiC_Uba9dvsVj1iyD3g16VnjkZXMgI/edit?gid=0#gid=0" target="_blank" rel="noopener">Open Google Sheet</a>
     <a class="btn staff-only" data-tool="drive" id="lnk-drive" href="https://drive.google.com/drive/folders/1idNGiAbEB8UHiGEIXDuOdyRMd88JcxNb" target="_blank" rel="noopener">Open Google Drive photos</a>
     <button class="btn staff-only" data-tool="print" id="printtop" type="button" data-print-open>Print / Export</button>
@@ -655,12 +652,7 @@ body.hide-summary #summary{display:none!important}
     </div>
   </form>
 </dialog>
-<style id="pagestyle">@media print{
-  .pd .scroll{max-height:none!important;overflow:visible!important}
-  .srow .l{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.15;word-break:break-word}
-}
-.capwrap .srow .l{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.15;word-break:break-word}
-</style>
+<style id="pagestyle"></style>
 
 <script>
 /* ---------- Settings: edit these ---------- */
@@ -710,10 +702,6 @@ const CONFIG = {
     divreception: {tabs: ["checkin"], tools: ["refresh"]},                                // one login per division: sees only that division
     competition:  {tabs: ["overview", "division", "corps", "registrations"], tools: ["refresh", "print"]},
     judge:        {tabs: ["registrations"], tools: []}
-  },
-  ALIASES: {                 // quick fix when a name in the sheet is spelled differently from the master list: "SPELLING IN THE SHEET": "NAME IN THE LIST" (capital letters)
-    division: {},            // e.g. {"NILGIRIS": "NILGRIS"}
-    corps: {}                // e.g. {"KADAMPADI": "KADAMPADIVILAGAM"}
   },
   CONFIRM_URL: "",           // optional: Apps Script address that saves reception confirmations to the sheet so every desk shares them (see setup notes). Empty = saved on this device only
   DRIVE_API_KEY: "",         // optional (instead of PHOTO_LOOKUP_URL): a Google Drive API key + the photos folder, so photos update on their own
@@ -871,60 +859,17 @@ function toRecords(table){
 
 /* ---------- Division / corps master list (from the Come & Shine form) ---------- */
 const DIVS = MASTER.divisions;
-const engKey = v => { const full = String(v || ""), eng = full.split(" - ")[0];
-  const k = x => x.toUpperCase().replace(/[^\p{L}\p{M}\p{N}]+/gu, " ").trim();
-  return k(eng) || k(full); };                       // English part, ignoring capitals, spaces and punctuation; Tamil-only text is used as it is
-const squash = k => k.replace(/ /g, "");
-const corpsIndex = {}, corpsSq = {}, DIV_SQ = {};
-DIVS.forEach(d => {
-  DIV_SQ[squash(engKey(d.key))] = d; corpsIndex[d.key] = {}; corpsSq[d.key] = {};
-  (MASTER.corps[d.key] || []).forEach(c => { corpsIndex[d.key][engKey(c)] = c; corpsSq[d.key][squash(engKey(c))] = c; });
-});
+const engKey = v => norm(String(v || "").split(" - ")[0]).toUpperCase();
+const corpsIndex = {};
+DIVS.forEach(d => { corpsIndex[d.key] = {}; (MASTER.corps[d.key] || []).forEach(c => { corpsIndex[d.key][engKey(c)] = c; }); });
 const CORPS_TOTAL = DIVS.reduce((a,d) => a + (MASTER.corps[d.key] || []).length, 0);
-function lev(a, b){
-  const m = a.length, n = b.length; if (!m) return n; if (!n) return m;
-  let prev = Array.from({length:n + 1}, (_, j) => j);
-  for (let i = 1; i <= m; i++){ const cur = [i]; for (let j = 1; j <= n; j++) cur[j] = Math.min(prev[j] + 1, cur[j-1] + 1, prev[j-1] + (a[i-1] === b[j-1] ? 0 : 1)); prev = cur; }
-  return prev[n];
-}
-function nearest(text, names){                      // the closest name in the list, if it is close enough to be a likely typo
-  const q = squash(engKey(text)); if (!q) return "";
-  let best = "", bd = 99;
-  names.forEach(nm => { const k = squash(engKey(nm)), d = k.includes(q) || q.includes(k) ? 1 : lev(q, k); if (d < bd){ bd = d; best = nm; } });
-  return bd <= Math.max(2, Math.round(q.length * .3)) ? best : "";
-}
 function matchMaster(r){
-  const al = CONFIG.ALIASES || {}, ek = engKey(r.division);
-  const dAl = (al.division || {})[ek];
-  const d = DIV_SQ[squash(engKey(dAl || ek))] || DIVS.find(x => ek && ek.startsWith(engKey(x.key)));
+  const e = engKey(r.division);
+  const d = DIVS.find(x => x.key === e) || DIVS.find(x => e && e.startsWith(x.key));
   r.divKey = d ? d.key : null;
-  r.corpsKey = engKey(r.corps); r.corpsMaster = null; r.hint = "";
-  if (d){
-    const cAl = (al.corps || {})[r.corpsKey];
-    const c = corpsSq[d.key][squash(engKey(cAl || r.corps))] || null;
-    r.corpsMaster = c;
-    if (c) r.corpsKey = engKey(c);                  // use the list's own spelling from here on
-    else {
-      const other = DIVS.find(x => x.key !== d.key && corpsSq[x.key][squash(r.corpsKey)]);
-      r.hint = other ? `that corps is listed under ${other.key}` : (nearest(r.corps, MASTER.corps[d.key] || []) ? `did you mean ${nearest(r.corps, MASTER.corps[d.key]).split(" - ")[0]}?` : "");
-    }
-  } else {
-    const nd = nearest(r.division, DIVS.map(x => x.key));
-    r.hint = nd ? `did you mean ${nd}?` : "";
-  }
+  r.corpsKey = engKey(r.corps);
+  r.corpsMaster = d && corpsIndex[d.key][r.corpsKey] ? corpsIndex[d.key][r.corpsKey] : null;
 }
-function unmatchedNote(){
-  const bad = RECORDS.filter(r => !r.divKey || !r.corpsMaster);
-  if (!bad.length) return "";
-  const seen = new Set(), parts = [];
-  bad.forEach(r => {
-    const what = !r.divKey ? `division “${clean(r.division) || "(blank)"}”` : `corps “${clean(r.corps).split(" - ")[0] || "(blank)"}” in ${r.divKey}`;
-    const t = `${clean(r.team) || r.regId}: ${what}${r.hint ? " — " + r.hint : ""}`;
-    if (!seen.has(t)){ seen.add(t); parts.push(t); }
-  });
-  return `${bad.length} team${bad.length > 1 ? "s don't" : " doesn't"} match the division/corps list (shown as “not in list”): ${parts.slice(0, 6).join("; ")}${parts.length > 6 ? `; and ${parts.length - 6} more` : ""}. Fix the spelling in the sheet, or add it to ALIASES in the settings.`;
-}
-
 function dl(name, head, rows){
   const q = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
   const csv = [head, ...rows].map(r => r.map(q).join(",")).join("\r\n");
@@ -950,16 +895,15 @@ let dSort = {k:"idx", dir:1}, cSort = {k:"idx", dir:1};
 function divisionRows(){
   const rows = DIVS.map((d,i) => ({idx:i, key:d.key, ta:d.ta, name:d.key, corpsTotal:(MASTER.corps[d.key]||[]).length, set:new Set(), teams:0, contestants:0, photos:0, issues:0, known:true}));
   const by = Object.fromEntries(rows.map(r => [r.key, r]));
-  const others = {};
+  let other = null;
   RECORDS.forEach(r => {
-    let g = r.divKey ? by[r.divKey] : null;
-    if (!g){ const t = clean(r.division).split(" - ")[0] || "(blank)"; g = others[t] = others[t] || {idx:999 + Object.keys(others).length, key:t, ta:"", name:t + " (not in list)", corpsTotal:0, set:new Set(), teams:0, contestants:0, photos:0, issues:0, known:false}; }
+    const g = r.divKey ? by[r.divKey] : (other = other || {idx:999, key:"Not in master list", ta:"", name:"Not in master list", corpsTotal:0, set:new Set(), teams:0, contestants:0, photos:0, issues:0, known:false});
     g.teams++; g.contestants += r.contestants;
     if (r.hasPhotoInfo) g.photos += Math.max(0, r.contestants - r.photos);
     if (r.issues.length) g.issues++;
     g.set.add(r.corpsKey || "(blank)");
   });
-  Object.values(others).forEach(g => rows.push(g));
+  if (other) rows.push(other);
   rows.forEach(g => {
     g.corpsIn = g.known ? [...g.set].filter(k => corpsIndex[g.key][k]).length : g.set.size;
     g.avg = g.teams ? g.contestants / g.teams : 0;
@@ -991,7 +935,7 @@ function corpsRows(){
     let row = r.corpsMaster ? map[r.divKey + "|" + r.corpsKey] : null;
     if (!row){
       const k = "?|" + engKey(r.division) + "|" + r.corpsKey;
-      if (!map[k]){ map[k] = {idx:1000 + rows.length, division:r.divKey || clean(r.division).split(" - ")[0] || "(blank)", corps:clean(r.corps) || "(blank)", teams:[], dates:new Set(), contestants:0, issues:0, known:false}; rows.push(map[k]); }
+      if (!map[k]){ map[k] = {idx:1000 + rows.length, division:clean(r.division) || "(blank)", corps:clean(r.corps) || "(blank)", teams:[], dates:new Set(), contestants:0, issues:0, known:false}; rows.push(map[k]); }
       row = map[k];
     }
     row.teams.push(r.team); row.contestants += r.contestants; if (r.issues.length) row.issues++;
@@ -1021,11 +965,11 @@ function renderCorpsCard(){
   $("cr-teams").textContent = scope.length;
   $("cr-cont").textContent = scope.reduce((a,r) => a + r.contestants, 0);
   $("cr-reg").textContent = reg;
-  const regRows = rows.filter(r => r.teamCount).sort((a,b) => b.teamCount - a.teamCount || b.contestants - a.contestants || a.idx - b.idx);
+  const regRows = known.filter(r => r.teamCount).sort((a,b) => b.teamCount - a.teamCount || b.contestants - a.contestants || a.idx - b.idx);
   const max = Math.max(1, ...regRows.map(r => r.teamCount));
   $("crcorps").innerHTML = regRows.length
     ? `<div class="srow hd"><span class="l">Corps</span><span>Teams</span><span class="c">Contestants</span></div>
-       <div class="scroll">${regRows.map(r => { const n = r.corps.split(" - ")[0] + (r.known ? "" : " (not in list)"); return srow(d ? n : `${n} (${r.division})`, r.teamCount, max, r.contestants, r.corps); }).join("")}</div>
+       <div class="scroll">${regRows.map(r => { const n = r.corps.split(" - ")[0]; return srow(d ? n : `${n} (${r.division})`, r.teamCount, max, r.contestants, r.corps); }).join("")}</div>
        <div class="tot"><span>Total · ${regRows.length} corps</span><span>${regRows.reduce((a, r) => a + r.teamCount, 0)} teams · ${regRows.reduce((a, r) => a + r.contestants, 0)} contestants</span></div>`
     : `<div class="none">No corps registered yet.</div>`;
 }
@@ -1380,7 +1324,7 @@ function idCardHTML(c){
       <div class="ht"><small class="org">The Salvation Army – ISET</small><b>RHYTHM OF PRAISE</b><i>Territorial Timbrel Festival - 2026</i></div>
       <div class="lg rt">${right}</div>
     </div>
-    ${src ? `<div class="ph"><img src="${esc(src)}" data-alts="${esc(JSON.stringify(alts))}" data-tf=".5" data-ty=".48" alt="" referrerpolicy="no-referrer" loading="eager"></div>` : `<div class="ph">${esc(ini)}</div>`}
+    ${src ? `<div class="ph"><img src="${esc(src)}" data-alts="${esc(JSON.stringify(alts))}" alt="" referrerpolicy="no-referrer" loading="eager"></div>` : `<div class="ph">${esc(ini)}</div>`}
     <div class="nm">${esc(c.name || "(name missing)")}</div>
     <div class="qr"><div class="qrbox">${qrSvg(code) || esc(code)}</div><small>Scan to verify</small></div>
     <div class="ob"><span>Contestant No.</span><b>${esc(c.no)}</b><hr><span>Hall No.</span><strong class="hall">${esc(c.hall || "")}</strong></div>
@@ -1436,68 +1380,6 @@ $("id-print").addEventListener("click", () => {
   window.addEventListener("afterprint", restore);
   setTimeout(() => window.print(), 80);
 });
-
-/* ---------- Face fitting: keep the face centred inside the round / square frame ---------- */
-const FACE_CACHE = {};
-let faceApiReady = null;
-function loadScript(u){ return new Promise((ok, no) => { const e = document.createElement("script"); e.src = u; e.onload = ok; e.onerror = no; document.head.appendChild(e); }); }
-function ensureFaceApi(){
-  if (!faceApiReady) faceApiReady = (async () => {
-    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/face-api.js/0.22.2/face-api.min.js");
-    await faceapi.nets.tinyFaceDetector.loadFromUri("https://cdn.jsdelivr.net/gh/justadudewhohacks/face-api.js@master/weights");
-    return new faceapi.TinyFaceDetectorOptions({inputSize: 320, scoreThreshold: .4});
-  })();
-  return faceApiReady;
-}
-async function detectFaces(im){
-  if ("FaceDetector" in window){
-    try { return (await new FaceDetector({fastMode:true, maxDetectedFaces:4}).detect(im)).map(f => f.boundingBox); } catch (e){}
-  }
-  const opt = await ensureFaceApi();
-  return (await faceapi.detectAllFaces(im, opt)).map(d => d.box);
-}
-const loadProbe = u => new Promise((ok, no) => { const p = new Image(); p.crossOrigin = "anonymous"; p.onload = () => ok(p); p.onerror = no; p.src = u; });
-async function faceBox(urls){
-  for (const u of urls){
-    if (!u) continue;
-    if (u in FACE_CACHE){ if (FACE_CACHE[u]) return FACE_CACHE[u]; continue; }
-    FACE_CACHE[u] = null;
-    try {
-      const p = await loadProbe(u), boxes = await detectFaces(p);
-      if (boxes && boxes.length){
-        const b = boxes.sort((a, c) => c.width * c.height - a.width * a.height)[0], nw = p.naturalWidth, nh = p.naturalHeight;
-        return FACE_CACHE[u] = {fx:b.x / nw, fy:b.y / nh, fw:b.width / nw, fh:b.height / nh};
-      }
-    } catch (e){}
-  }
-  return null;
-}
-async function fitFace(img){
-  if (!img || img.dataset.fit || !img.dataset.tf) return;
-  const c = img.parentElement, W = c && c.clientWidth, H = c && c.clientHeight;
-  if (!W || !H || !img.naturalWidth) return;                 // tab hidden or not loaded yet: tried again when shown
-  img.dataset.fit = "1";
-  // Safe default that works with no face detection: a near-square photo fills the frame, any other shape is shown whole so the face is never cut off
-  const ar = img.naturalWidth / img.naturalHeight;
-  const round = !!img.closest(".idcard");                      // the ID card frame is a circle: keep the photo well inside it so the edges don't clip the face
-  img.style.boxSizing = "border-box";
-  img.style.objectFit = (!round && ar > .85 && ar < 1.2) ? "cover" : "contain";
-  img.style.objectPosition = "center 40%";
-  if (round) img.style.padding = "9%";
-  let alts = []; try { alts = JSON.parse(img.dataset.alts || "[]"); } catch (_) {}
-  let fb = null;
-  try { fb = await faceBox([...alts, img.currentSrc || img.src]); } catch (e){}
-  if (!fb) return;                                           // detection unavailable: keep the safe default above
-  const a = img.naturalWidth / img.naturalHeight, tf = +img.dataset.tf, ty = +img.dataset.ty;
-  let dw = tf * Math.min(W, H) / (Math.max(fb.fw, fb.fh / a) * 1.3);   // size the picture so the face (with hair) fills tf of the frame
-  dw = Math.max(dw, W, H * a); const dh = dw / a;
-  const cx = (fb.fx + fb.fw / 2) * dw, cy = (fb.fy + fb.fh * .42) * dh;
-  const left = Math.min(0, Math.max(W - dw, W / 2 - cx)), top = Math.min(0, Math.max(H - dh, H * ty - cy));
-  img.classList.add("fitted");
-  img.style.cssText = `width:${dw / W * 100}%;height:${dh / H * 100}%;left:${left / W * 100}%;top:${top / H * 100}%`;
-}
-const fitAllFaces = () => document.querySelectorAll("img[data-tf]").forEach(fitFace);
-["idsheet", "poster"].forEach(id => $(id).addEventListener("load", e => { if (e.target.tagName === "IMG") fitFace(e.target); }, true));
 
 /* ---------- Reception: confirm contestants ---------- */
 let CONF = {}, CI_INDEX = {};          // CONF: "groupId|no" -> {by, time}
@@ -1574,44 +1456,6 @@ DIVS.forEach(d => { const o = document.createElement("option"); o.textContent = 
 ["ci-div", "ci-filter"].forEach(id => $(id).addEventListener("change", renderCheckin));
 
 /* ---------- Team posters ---------- */
-/* 72 different looks: 24 hues x 3 tones. Each team takes its own place in the list (by Reg ID order), so no two teams share a colour. */
-function hsl(h, sat, l){
-  h = ((h % 360) + 360) % 360; sat /= 100; l /= 100;
-  const k = n => (n + h / 30) % 12, a = sat * Math.min(l, 1 - l), f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-  return "#" + [f(0), f(8), f(4)].map(x => Math.round(x * 255).toString(16).padStart(2, "0")).join("");
-}
-const PO_TONES = [{s:72, l:[32,24,16,10]}, {s:58, l:[42,33,24,16]}, {s:86, l:[26,20,13,8]}];
-function poThemeAt(n){
-  const hi = (n * 7) % 24, t = Math.floor(n / 24) % 3, h = hi * 15 + t * 5, T = PO_TONES[t];
-  return [hsl(h, T.s, T.l[0]), hsl(h, T.s, T.l[1]), hsl(h, T.s, T.l[2]), hsl(h, T.s, T.l[3]), hsl(h, T.s + 8, T.l[0] + 20), hsl(h, T.s, T.l[1]), hsl(h, T.s + 6, T.l[0] + 6)];
-}
-const PO_THEMES = [poThemeAt(0)];
-function poTheme(r){
-  const all = RECORDS.filter(x => (x.members || []).length)
-    .sort((x, y) => String(x.regId).localeCompare(String(y.regId), undefined, {numeric:true}) || String(x.team).localeCompare(String(y.team)));
-  const i = all.findIndex(x => poKey(x) === poKey(r));
-  return poThemeAt(i < 0 ? 0 : i);
-}
-// A tri-colour (yellow, blue, red) rope: three strands twisting over and under each other
-const TW_CACHE = {};
-function twistRope(w, h, cycles, thick){
-  const key = [w, h, cycles, thick].join("|"); if (TW_CACHE[key]) return TW_CACHE[key];
-  const cols = ["#ffc928", "#1d4fd8", "#e01010"], A = (h - thick) / 2 * .9, step = 4, n = Math.round(w / step), segs = [];
-  for (let k = 0; k < 3; k++){
-    const ph = k * 2 * Math.PI / 3;
-    let px = 0, py = 0;
-    for (let i = 0; i <= n; i++){
-      const x = i * w / n, a = 2 * Math.PI * cycles * x / w + ph, y = h / 2 + A * Math.sin(a);
-      if (i) segs.push({d: Math.cos(a), c: cols[k], x1: px, y1: py, x2: x, y2: y});
-      px = x; py = y;
-    }
-  }
-  segs.sort((a, b) => a.d - b.d);
-  const L = (g, c, wd) => `<line x1="${g.x1.toFixed(1)}" y1="${g.y1.toFixed(1)}" x2="${g.x2.toFixed(1)}" y2="${g.y2.toFixed(1)}" stroke="${c}" stroke-width="${wd}" stroke-linecap="round"/>`;
-  const body = segs.map(g => L(g, "rgba(0,0,0,.45)", thick + 3) + L(g, g.c, thick) + L(g, "rgba(255,255,255,.22)", Math.max(1, thick * .22))).join("");
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${body}</svg>`;
-  return TW_CACHE[key] = `url('data:image/svg+xml;utf8,${encodeURIComponent(svg)}') center/100% 100% no-repeat`;
-}
 let poSig = "", poSel = "", poHtml = "";
 const poKey = r => (r.regId || "") + "|" + r.team;
 const poTeams = () => RECORDS.filter(r => (r.members || []).length)
@@ -1625,8 +1469,8 @@ function posterHTML(r){
   const div = clean(r.division).split(" - ")[0];
   const cards = r.members.map(m => {
     const urls = posterPhoto(m.photo), nm = clean(m.name), nfs = nm.length <= 10 ? 30 : nm.length <= 16 ? 25 : 21;
-    const photo = urls.length ? `<img class="po-ph" src="${esc(urls[0])}" data-alts="${esc(JSON.stringify(urls.slice(1)))}" data-tf=".5" data-ty=".38" alt="" referrerpolicy="no-referrer">` : `<div class="po-ph none">${esc((nm || "?").charAt(0).toUpperCase())}</div>`;
-    return `<div class="po-card"><div class="po-in"><div class="po-pw">${photo}</div><div class="po-name" style="font-size:${nfs}px">${esc(nm)}</div></div></div>`;
+    const photo = urls.length ? `<img class="po-ph" src="${esc(urls[0])}" data-alts="${esc(JSON.stringify(urls.slice(1)))}" alt="" referrerpolicy="no-referrer">` : `<div class="po-ph none">${esc((nm || "?").charAt(0).toUpperCase())}</div>`;
+    return `<div class="po-card"><div class="po-in">${photo}<div class="po-name" style="font-size:${nfs}px">${esc(nm)}</div></div></div>`;
   }).join("");
   return `<div class="po-ray" style="transform:rotate(-42deg)"></div><div class="po-ray" style="transform:rotate(-21deg)"></div><div class="po-ray" style="transform:rotate(0deg)"></div><div class="po-ray" style="transform:rotate(21deg)"></div><div class="po-ray" style="transform:rotate(42deg)"></div>
     <div class="po-arc"></div>
@@ -1635,14 +1479,14 @@ function posterHTML(r){
     <div class="po-title">RHYTHM OF PRAISE</div>
     <div class="po-fest">Territorial Timbrel Festival - 2026</div>
     <div class="po-plaque">
-      ${["l1","l2","r1","r2"].map(c => `<div class="po-rb ${c}" style="background:${twistRope(330, 92, 3, 30)}"></div>`).join("")}
+      <div class="po-rb l1"></div><div class="po-rb l2"></div><div class="po-rb r1"></div><div class="po-rb r2"></div>
       <div class="po-plaque-in">
         <div class="po-team" style="font-size:${fs}px">${esc(team)}</div>
         <div class="po-ribbon"><i class="y"></i><b>${esc(div)}${div ? " Division" : ""}</b><i class="r"></i></div>
       </div>
     </div>
     <div class="po-grid">${cards}</div>
-    <div class="po-band" style="background:${twistRope(1080, 54, 12, 19)}"></div>`;
+    <div class="po-band"></div>`;
 }
 function fitPoster(){
   const st = $("po-stage"), poster = $("poster");
@@ -1662,8 +1506,6 @@ function renderPoster(){
     if (poSel && teams.some(r => poKey(r) === poSel)) sel.value = poSel; else poSel = sel.value;
   }
   const r = teams.find(t => poKey(t) === sel.value);
-  const th = r ? poTheme(r) : PO_THEMES[0], ps = $("poster").style;
-  ["pb1","pb2","pb3","pb4","pl1","pl2","pr"].forEach((k, i) => ps.setProperty("--" + k, th[i]));
   const html = r ? posterHTML(r) : `<div style="padding:120px 0;font-size:40px">No teams yet</div>`;
   if (html !== poHtml){ poHtml = html; $("poster").innerHTML = html; }
   fitPoster();
@@ -1697,7 +1539,7 @@ $("po-jpg").addEventListener("click", async () => {
   document.body.appendChild(wrap); setStatus("Preparing the poster…");
   try {
     if (document.fonts && document.fonts.ready) await document.fonts.ready;
-    const canvas = await html2canvas(wrap, {scale:1.5, useCORS:true, backgroundColor:$("poster").style.getPropertyValue("--pb4") || "#06123f", windowWidth:1080,
+    const canvas = await html2canvas(wrap, {scale:1.5, useCORS:true, backgroundColor:"#06123f", windowWidth:1080,
       onclone: doc => { const el = doc.body.lastElementChild; if (el){ el.style.position = "static"; el.style.left = "0"; } }});
     const a = document.createElement("a"), team = (sel.options[sel.selectedIndex].text.split(" — ")[0] || "team").replace(/[^\w-]+/g, "_");
     a.href = canvas.toDataURL("image/jpeg", .93); a.download = `Poster_${team}.jpg`;
@@ -1713,7 +1555,6 @@ function showTab(t){
   if (!document.querySelector(`[data-tab="${t}"]`)) t = allowed ? allowed[0] : "overview";
   currentTab = t;
   if (t === "poster") setTimeout(fitPoster, 0);
-  setTimeout(() => { if (typeof fitAllFaces === "function") fitAllFaces(); }, 50);
   document.querySelectorAll("[data-tab]").forEach(el => { el.hidden = el.dataset.tab !== t; });
   document.querySelectorAll("[data-tabbtn]").forEach(b => b.setAttribute("aria-selected", b.dataset.tabbtn === t));
   try { history.replaceState(null, "", "#" + t); } catch (e) {}
@@ -1769,12 +1610,11 @@ async function load(){
     }
     RECORDS = toRecords(table);
     const noCols = RECORDS.length && !RECORDS.some(r => r.division || r.corps || r.team);
-    const bannerMain = (noCols
+    banner(noCols
       ? `Rows were found (${used}) but the column headings weren't recognised. Headings seen: ${LAST_HEAD.filter(Boolean).join(", ") || "(none)"}. They need to include Division, Corps and Team.`
       : table.length < 2
         ? `Connected to the sheet (${used}) but it has no registration rows yet. If registrations exist, set GID in the settings at the top of the script to the number after "gid=" in that tab's address.`
         : (DROPPED ? `Only CONFIRMED teams are counted. ${DROPPED} other registration${DROPPED > 1 ? "s were" : " was"} left out (${DROPPED_INFO}).` : ""));
-    banner([bannerMain, unmatchedNote()].filter(Boolean).join("  "));
     $("pubnote").hidden = true;
     await loadPhotoMap(); await loadConf();
     render(); setStatus("Updated " + new Date().toLocaleTimeString() + " · " + RECORDS.length + " teams read · " + used);
